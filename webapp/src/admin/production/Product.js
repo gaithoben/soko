@@ -5,9 +5,10 @@ import { RemoteDataGrid } from "@cloudhub-ux/core/datagrid";
 
 import { Block, Alert } from "@cloudhub-ux/core";
 
-import useAdminAxios from "./context/useAdminAxios";
+import useAdminAxios from "../context/useAdminAxios";
 
 import ProductForm from "./forms/ProductForm";
+import CellComponent from "../common/CellComponent";
 import { TableCell } from "@mui/material";
 
 // const dateFormat = 'DD-MMM-YYYY hh:mm a';
@@ -28,18 +29,30 @@ const Product = (props) => {
     gridRef.current.onDeleteSuccess(deletingRows);
   };
 
-  const cellComponent = ({ row, column }) => {
-    return <TableCell>{row[column.name]}</TableCell>;
+  const cellComponent = ({ column, row }) => {
+    if (column.name === "Produce") {
+      return (
+        <TableCell>
+          {row.Produce.map((p) => p.ProductName).join(", ")}
+        </TableCell>
+      );
+    }
+
+    return <CellComponent column={column} row={row} />;
   };
 
   const cols = [
     { name: "ProductCode", title: "Product Code" },
     { name: "ProductName", title: "Product Name" },
+    { name: "Packs" },
+    { name: "Produce", title: "Raw Materials" },
   ];
 
   const columnWidths = [
     { columnName: "ProductCode", width: 120 },
     { columnName: "ProductName", width: 150 },
+    { columnName: "Packs", width: 150 },
+    { columnName: "Produce", width: 150 },
   ];
 
   return (
@@ -51,7 +64,7 @@ const Product = (props) => {
       </Block>
       <RemoteDataGrid
         title="Products"
-        url="/product/getall"
+        url="/admin/production/product/getall"
         axiosinstance={adminaxiosinstance}
         columns={cols}
         columnWidths={columnWidths}

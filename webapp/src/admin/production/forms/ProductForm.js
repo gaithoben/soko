@@ -10,18 +10,22 @@ import Dialog, {
 
 import colors from "@cloudhub-ux/core/theme/Colors";
 
-import useAdminAxios from "../context/useAdminAxios";
+import useAdminAxios from "../../context/useAdminAxios";
+import ProduceSelector from "../selectors/ProduceSelector";
 const ProductForm = (props) => {
   const { height } = useMetrics();
-  const { postData, error, reset, axiosinstance } = useAdminAxios();
+  const { postData, error, reset } = useAdminAxios();
 
   const { editingRow } = props;
   const values = editingRow || {};
 
   const onSaveProduct = async (values, form) => {
     console.log(postData);
-    const { data } = await axiosinstance().post(`/product/saveproduct`, {
-      ...values,
+    const data = await postData({
+      url: `/admin/production/product/saveproduct`,
+      params: {
+        ...values,
+      },
     });
 
     if (data) {
@@ -71,7 +75,21 @@ const ProductForm = (props) => {
                     min={0}
                     flex
                   />
+                  <Field
+                    label="Packs"
+                    name="Packs"
+                    component={Input}
+                    min={0}
+                    number
+                  />
                 </FieldBlock>
+                <Field
+                  label="Raw Materials"
+                  name="Produce"
+                  component={ProduceSelector}
+                  isMulti
+                  required
+                />
               </Block>
             </DialogContent>
 

@@ -20,8 +20,7 @@ const useAdminAxios = (props) => {
     () =>
       async ({ url = "", params = {} }) => {
         try {
-          const { data } = await axiosinstance().get({
-            url: url,
+          const { data } = await axiosinstance().get(url, {
             params: {
               ...params,
             },
@@ -40,10 +39,7 @@ const useAdminAxios = (props) => {
     () =>
       async ({ url = "", params = {} }) => {
         try {
-          const { data } = await axiosinstance().post({
-            url,
-            params,
-          });
+          const { data } = await axiosinstance().post(url, params);
           return data;
         } catch (error) {
           const reponse = error.response || {};
@@ -59,6 +55,8 @@ const useAdminAxios = (props) => {
     getData,
     axiosinstance,
     error,
+    reset: setError,
+    setError,
   };
 };
 

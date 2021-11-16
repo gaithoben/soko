@@ -3,6 +3,9 @@ import LocationProvider from "@cloudhub-ux/core/customhooks/LocationProvider";
 import AdminApp from "./admin/AdminApp";
 import "./App.css";
 import { Router } from "@cloudhub-ux/core/reach";
+import AdminRoutes from "./admin/AdminRoutes";
+import WebsiteRoutes from "./website/WebsiteRoutes";
+import WebsiteApp from "./website/WebsiteApp";
 
 const HomeRouter = () => {
   return (
@@ -14,7 +17,8 @@ const HomeRouter = () => {
         flexDirection: "column",
       }}
     >
-      <AdminApp path="/adminpp" default />
+      <WebsiteApp path="/" default />
+      <AdminApp path="/admin/*" />
     </Router>
   );
 };

@@ -13,9 +13,15 @@ const AdminApp = ({ children }) => {
       <Block row>
         <Block flex={false} style={{ width: 300 }} color={Colors.gray2}>
           <ListMenu>
+            <ListMenuItem component={Link} to="/" primary="Website" />
             <ListMenuItem
               component={Link}
-              to="/adminpp/products"
+              to="production/rawmaterials"
+              primary="Raw Materials"
+            />
+            <ListMenuItem
+              component={Link}
+              to="production/products"
               primary="Products"
             />
           </ListMenu>

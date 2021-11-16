@@ -112,4 +112,29 @@ module.exports = {
       return res.serverError(error);
     }
   },
+
+  processproduct: async (req, res) => {
+    const params = req.allParams() || {};
+    const headers = req.headers || {};
+    try {
+      const prod = params.Product || {};
+      if (!prod.id || !params.Packs) {
+        throw new Error("PARAMS_VALIDATION_ERROR");
+      }
+
+      const product = await Product.findOne(prod.id);
+
+      console.log("====================================");
+      console.log(product);
+      console.log("====================================");
+
+      await product.processProduct(params.Packs);
+      return res.ok(product);
+    } catch (error) {
+      console.log("====================================");
+      console.log(error);
+      console.log("====================================");
+      return res.serverError(error);
+    }
+  },
 };

@@ -1,5 +1,5 @@
 /**
- * Product.js
+ * Produce.js
  *
  * @description :: A model definition.  Represents a database table/collection/etc.
  * @docs        :: https://sailsjs.com/docs/concepts/models-and-orm/models
@@ -7,52 +7,58 @@
  */
 
 module.exports = {
+  classType: "Edge",
+  edgeDefinition: {
+    from: ["produce"],
+    to: ["product"],
+  },
+
   attributes: {
-    ProductCode: {
-      type: "string",
-      unique: true,
-      required: true,
-    },
-
-    ProductName: {
-      type: "string",
-      defaultsTo: "",
-    },
-
-    // Price: {
-    //   type: "number",
-    //   defaultsTo: 0,
-    //   rules: {
-    //     minimum: 0,
-    //   },
-    // },
-
-    // Discount: {
-    //   type: "number",
-    //   defaultsTo: 0,
-    //   rules: {
-    //     minimum: 0,
-    //   },
-    // },
-
-    // Timestamp: {
-    //   type: "number",
-    //   defaultsTo: 0,
-    //   rules: {
-    //     minimum: 1,
-    //   },
-    // },
-
-    Produce: {
+    From: {
       type: "json",
       defaultsTo: {},
       rules: {
-        linkCollections: ["produce", "otherproduct"],
+        linkCollections: ["produce"],
         properties: {
           _id: { type: "string" },
           id: { type: "string" },
         },
         required: ["id"],
+      },
+    },
+    To: {
+      type: "json",
+      defaultsTo: {},
+      rules: {
+        linkCollections: ["product"],
+        properties: {
+          _id: { type: "string" },
+          id: { type: "string" },
+        },
+        required: ["id"],
+      },
+    },
+    Weight: {
+      type: "number",
+      defaultsTo: 0,
+      rules: {
+        minimum: 0,
+      },
+    },
+
+    Packs: {
+      type: "number",
+      defaultsTo: 0,
+      rules: {
+        minimum: 0,
+      },
+    },
+
+    Timestamp: {
+      type: "number",
+      defaultsTo: 0,
+      rules: {
+        minimum: 1,
       },
     },
   },

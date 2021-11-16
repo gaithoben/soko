@@ -7,15 +7,25 @@
  */
 
 module.exports = {
+  keyProps: ["ProductName"],
   attributes: {
     ProductCode: {
       type: "string",
       defaultsTo: "",
+      unique: true,
     },
 
     ProductName: {
       type: "string",
       defaultsTo: "",
+    },
+
+    Weight: {
+      type: "number",
+      defaultsTo: 0,
+      rules: {
+        minimum: 0,
+      },
     },
 
     Timestamp: {

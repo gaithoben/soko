@@ -1,13 +1,15 @@
 import React from "react";
 import { Router } from "@cloudhub-ux/core/reach";
-import Product from "./Product";
+import ProductionRoutes from "./production/ProductionRoutes";
+import MainDashboard from "./dashboards/MainDashboard";
 
 const AdminRoutes = (props) => {
   const [] = React.useState(0);
 
   return (
     <Router style={{ flex: 1, display: "flex" }}>
-      <Product path="/products/*" default />
+      <MainDashboard path="/" default />
+      <ProductionRoutes path="production/*" />
     </Router>
   );
 };
